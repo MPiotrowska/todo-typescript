@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+[Design Inspiration](https://dribbble.com/shots/5796198-Tudy/attachments/5796198-Tudy?mode=media)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
