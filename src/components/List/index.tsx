@@ -1,5 +1,6 @@
 import React from 'react';
-import { Todo } from '../../lib/todoContext';
+import ContentEditable from 'react-contenteditable';
+import { Todo, useTodoDispatch } from '../../lib/todoContext';
 
 export const List = ({ todos }: { todos: Todo[] }) => {
   return (
@@ -12,10 +13,27 @@ export const List = ({ todos }: { todos: Todo[] }) => {
 };
 
 const ListItem = ({ todo }: { todo: Todo }) => {
+  const [editableText, setEditableText] = React.useState(todo.text);
+  const dispatch = useTodoDispatch();
+
+  const handleChange = (e: any) => {
+    setEditableText(e.currentTarget.value);
+    
+  };
+
+  const handleClick = () => {
+    dispatch({
+      type: 'REMOVE_TODO',
+      payload: {
+        id: todo.id,
+      },
+    });
+  };
+
   return (
     <>
-      <div>{todo.text}</div>
-      <button>x</button>
+      <input value={editableText} onChange={handleChange} />
+      <button onClick={handleClick}>x</button>
     </>
   );
 };
