@@ -12,5 +12,10 @@ export const List = ({ todos }: { todos: Todo[] }) => {
 };
 
 const ListItem = ({ todo }: { todo: Todo }) => {
-  return <div>{todo.text}</div>;
+  return (
+    <>
+      <div>{todo.text}</div>
+      <button>x</button>
+    </>
+  );
 };
