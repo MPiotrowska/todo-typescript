@@ -1,0 +1,18 @@
+"editor.formatOnSave": true,
+// turn it off for JS and JSX, we will do this via eslint
+"[javascript]": {
+  "editor.formatOnSave": false
+},
+"[javascriptreact]": {
+  "editor.formatOnSave": false
+},
+// tell the ESLint plugin to run on save
+"eslint.autoFixOnSave": true,
+  // If you have the prettier extension enabled for other languages, turn it off for JS since we're already doing this with ESLint
+"prettier.disableLanguages": [
+  "javascript",
+  "javascriptreact"
+],
+"javascript.updateImportsOnFileMove.enabled": "always",
+"editor.suggest.snippetsPreventQuickSuggestions": false,
+"typescript.updateImportsOnFileMove.enabled": "always",
