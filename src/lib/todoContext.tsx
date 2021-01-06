@@ -1,15 +1,15 @@
 import React from 'react';
 
-type Children = JSX.Element[] | JSX.Element
+type Children = JSX.Element[] | JSX.Element;
 
-interface Todo {
+export interface Todo {
   id: number;
   text?: string;
   completed?: boolean;
 }
 
 interface TodoState {
-  todos: [Todo] | [];
+  todos: Todo[] | [];
 }
 
 interface Action {
@@ -17,28 +17,42 @@ interface Action {
   payload: Todo;
 }
 
-
 const TodoStateContext = React.createContext<TodoState | undefined>(undefined);
 const TodoDispatchContext = React.createContext<React.Dispatch<Action> | undefined>(undefined);
 
 const initialState: TodoState = {
-  todos: [],
+  todos: [
+    { id: 0, text: 'Yannis', completed: false },
+    { id: 1, text: 'Monika', completed: false },
+    { id: 2, text: 'Ela', completed: false },
+  ],
 };
-
-
 
 function todoReducer(state: TodoState, action: Action) {
   switch (action.type) {
     case 'ADD_TODO': {
       return {
         todos: [...state.todos, action.payload],
-      }
+      };
     }
     case 'REMOVE_TODO': {
-      const newState = state.todos.filter(todoObject => todoObject.id !== action.payload.id)
+      const newState = state.todos.filter(todoObject => todoObject.id !== action.payload.id);
       return {
         todos: newState,
-      }
+      };
+    }
+    case 'EDIT_TODO': {
+      //@ts-ignore
+      const editedList = state.todos.map((todoObject: Todo) => {
+        if (action.payload.id === todoObject.id) {
+          return { ...todoObject, text: action.payload.text };
+        }
+        return todoObject;
+      });
+
+      return {
+        todos: editedList,
+      };
     }
 
     default: {
@@ -46,10 +60,9 @@ function todoReducer(state: TodoState, action: Action) {
     }
   }
 }
-type Reducer<S, A> = (prevState: S, action: A) => S;
 
-function TodoProvider({ children }: { children: Children}) {
-  const [state, dispatch] = React.useReducer<Reducer<any, any>>(todoReducer, initialState);
+function TodoProvider({ children }: { children: Children }) {
+  const [state, dispatch] = React.useReducer<React.Reducer<any, any>>(todoReducer, initialState);
   return (
     <TodoStateContext.Provider value={state}>
       <TodoDispatchContext.Provider value={dispatch}>{children}</TodoDispatchContext.Provider>
