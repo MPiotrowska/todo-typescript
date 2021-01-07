@@ -1,14 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { List } from './components/List';
 import { useTodoState } from './lib/todoContext';
+import { AddForm } from './components/AddForm';
 
 function App() {
   const globalState = useTodoState();
   return (
     <div className='App'>
       <List todos={globalState.todos} />
+      <AddForm />
     </div>
   );
 }
