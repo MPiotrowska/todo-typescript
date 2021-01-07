@@ -3,7 +3,7 @@ import React from 'react';
 type Children = JSX.Element[] | JSX.Element;
 
 export interface Todo {
-  id: number;
+  id: string;
   text?: string;
   completed?: boolean;
 }
@@ -21,11 +21,7 @@ const TodoStateContext = React.createContext<TodoState | undefined>(undefined);
 const TodoDispatchContext = React.createContext<React.Dispatch<Action> | undefined>(undefined);
 
 const initialState: TodoState = {
-  todos: [
-    { id: 0, text: 'Yannis', completed: false },
-    { id: 1, text: 'Monika', completed: false },
-    { id: 2, text: 'Ela', completed: false },
-  ],
+  todos: [],
 };
 
 function todoReducer(state: TodoState, action: Action) {
